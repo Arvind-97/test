@@ -1,29 +1,10 @@
-pipeline {
-    agent any
-    stages {
-        stage('Compile Stage') {
-            steps {
-                withMaven(maven : 'Maven 3.3.9') {
-                    sh 'mvn clean compile'
-                }
-                //
-            }
-        }
-        stage('Testing Stage') {
-            steps {
-                 withMaven(maven : 'Maven 3.3.9') {
-                    sh 'mvn test'
-                 }
-                //
-            }
-        }
-        stage('Deployment Stage') {
-            steps {
-                withMaven(maven : 'Maven 3.3.9') {
-                    sh 'mvn deploy'
-                }
-                //
-            }
-        }
+node{
+    stage('SCM CHECKOUT'){
+      git 'https://github.com/Arvind-97/test'
     }
+    stage('Compile-Package'){
+     def mvnHome = tool name: 'maven-3.3.9', type: 'maven'
+        sh "${Mavenhome}/usr/share/maven package"
+    }
+ 
 }
